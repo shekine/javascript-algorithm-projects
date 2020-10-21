@@ -1,0 +1,26 @@
+function rot13(str) {
+  let arr= [], i, decoded = [], message = [];
+
+  for(i = 0; i < str.length; i++) {
+    arr.push(str[i].charCodeAt());
+  }
+
+  decoded = arr.map(item => {
+    if(item < 65) {
+      // Do nothing - leave special char and spaces alone
+      return item;
+    } else if(item >=65 && item <= 77) {
+      return item = item + 13;
+    } else if(item >= 78) {
+      return item = item - 26 + 13;
+    }
+  });
+  
+  for(i = 0; i < decoded.length; i++) {
+    message.push(String.fromCharCode(decoded[i]));
+  }
+
+  return message.join('');;
+}
+
+console.log(rot13("SERR PBQR PNZC"));
