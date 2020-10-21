@@ -6,7 +6,17 @@ function telephoneCheck(str) {
   let arr = str.split('');
   let filter = arr.filter(item => regex2.test(item));
   console.log(filter);
-  return filter.length >= 10 && filter.length < 12 ? regex.test(str) : false; 
+  if(filter.length >= 10 && filter.length < 12) {
+    if(filter.length == 10) {
+      return regex.test(str);
+    } else if(filter.length == 11) {
+      return str.charAt(0) !== "1" ? false : true;
+    }
+  } else { 
+    return false;
+  }
+  // return filter.length >= 10 < 12 ? regex.test(str) : false; 
 }
 
-console.log(telephoneCheck("27576227382"));
+console.log(telephoneCheck("1 555)555-5555"));
+
