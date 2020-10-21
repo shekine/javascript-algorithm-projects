@@ -1,0 +1,79 @@
+function convertToRoman(num) {
+ let arr = returnDecimalArr(num);
+ function convert(x,y,z,index) {
+     switch(arr[index]) {
+         case '1':
+            arr[index] = x;
+            break;
+         case '2':
+            arr[index] = x + x;
+            break;
+         case '3':
+            arr[index] = x + x + x;
+            break;
+         case '4':
+            arr[index] = x + y;
+            break;
+         case '5':
+            arr[index] = y;
+            break;
+         case '6':
+            arr[index] = y + x;
+            break;
+         case '7':
+            arr[index] = y + x + x;
+            break;
+         case '8':
+            arr[index] = y + x + x + x;
+            break;
+         case '9':
+            arr[index] = x + z;
+            break;
+         default:
+            delete arr[index];
+            break;
+     }
+     return arr;
+ }
+
+ convert("I","V","X",3);
+ convert("X","L","C",2);
+ convert("C","D","M",1);
+ convert("M","V&#x305","X&#x305",0);
+
+ return arr.join('');
+}
+
+ function returnDecimalArr(num) {
+     let ones, tens, hundreds, thousands;
+     let newNum = num.toString().split('');
+     switch(newNum.length) {
+         case 1:
+            thousands = 0;
+            hundreds = 0;
+            tens = 0;
+            ones = newNum[0];
+            break;
+         case 2:
+            thousands = 0;
+            hundreds = 0;
+            tens = newNum[0];
+            ones = newNum[1];
+            break;
+         case 3:
+            thousands = 0;
+            hundreds = newNum[0];
+            tens = newNum[1];
+            ones = newNum[2];
+            break;
+         case 4:
+            thousands = newNum[0];
+            hundreds = newNum[1];
+            tens = newNum[2];
+            ones = newNum[3];
+            break;
+     }
+     return [thousands,hundreds,tens,ones];
+ }
+
+console.log(convertToRoman(2014));
