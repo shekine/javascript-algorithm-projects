@@ -1,0 +1,21 @@
+function palindrome(str) {
+  // Returns string as an array of each character with only alphanumeric characters
+  let regex = /[^A-Za-z0-9]/g, arr, filtered;
+  arr = str.split(regex);
+  filtered = arr.filter(item => item).map(item => item.toLowerCase()).flatMap(item => item.split(''));
+
+  // Checks array to determine if it is a palindrome
+  let i, j = filtered.length - 1;
+  for(i = 0; i < filtered.length; i++) {
+    console.log(filtered[i], filtered[j-i])
+    if(filtered[i] !== filtered[j - i]){
+      return false
+    } 
+  }
+  return true
+}
+
+
+
+
+console.log(palindrome('almostomla'));
