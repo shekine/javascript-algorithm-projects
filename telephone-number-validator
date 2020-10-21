@@ -1,0 +1,12 @@
+// Incomplete and convoluted
+
+function telephoneCheck(str) {
+  let regex = /^1*\s*(?:[(]\d{3}[)]|\d{3}[-]|\d{3}\s|\d{3})\s*(?:\d{3}[-]|\d{3})\s*(?:\d{4})/;
+  let regex2 = /[0-9]+/;
+  let arr = str.split('');
+  let filter = arr.filter(item => regex2.test(item));
+  console.log(filter);
+  return filter.length >= 10 && filter.length < 12 ? regex.test(str) : false; 
+}
+
+console.log(telephoneCheck("27576227382"));
