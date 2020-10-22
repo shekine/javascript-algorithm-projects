@@ -44,16 +44,8 @@ function checkCashRegister(price, cash, cid) {
     }
   }
 
-  function chargeHundreds() {
-    if(change < 100) {
-      return change;
-    } else if(change >= 100) {
-      change = change - hundred;
-      hundreds = hundreds - hundred;
-      register.change[8][1] += hundred;
-      return chargeHundreds();
-    }
-  }
+  let filter = register.change.filter(item => item[1] !== 0);
+  register.change = filter;
 
   return register;
 }
