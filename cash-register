@@ -1,3 +1,83 @@
+// Now complete
+
+function checkCashRegister(price, cash, cid) {
+  let pennies = cid[0][1], penny = 0.01,
+   nickels = cid[1][1], nickel = 0.05,
+   dimes = cid[2][1], dime = 0.10,
+   quarters = cid[3][1], quarter = 0.25,
+   ones = cid[4][1], one = 1.00,
+   fives = cid[5][1], five = 5.00,
+   tens = cid[6][1], ten = 10.00,
+   twenties = cid[7][1], twenty = 20.00,
+   hundreds = cid[8][1], hundred = 100.00;
+
+  // Declare object to be eventually returned
+  let register = {
+    status: "",
+    change: [["PENNY", 0], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]
+  };
+  // Find how much change is needed
+  let change = cash - price;
+  let totalCash = getChange(cid);
+
+  if(totalCash == change) {
+    register.status = "CLOSED";
+    register.change = cid;
+    return register
+  }
+
+  // Total money in the register
+  function getChange(arr) {
+    let total = 0
+    for(let i = 0; i < arr.length; i++) {
+      total = total + arr[i][1];
+    }
+    return total.toFixed(2);
+  }
+
+  change >= 100 ? charge(hundred, hundreds, 8) : null;
+  change >= 20 ? charge(twenty, twenties, 7) : null;
+  change >= 10 ? charge(ten, tens, 6) : null;
+  change >= 5 ? charge(five, fives, 5) : null;
+  change >= 1 ? charge(one, ones, 4) : null;
+  change >= 0.25 ? charge(quarter, quarters, 3) : null;
+  change >= 0.10 ? charge(dime, dimes, 2) : null;
+  change >= 0.05 ? charge(nickel, nickels, 1) : null;
+  change >= 0.01 ? charge(penny, pennies, 0) : null;
+
+  function charge(x, xTotal, index) {
+    if(change < x) {
+      return change;
+    } else if(change >= x && xTotal >= x) {
+      if(xTotal >= x) {
+        change = change.toFixed(2) - x;
+        xTotal = xTotal - x;
+        register.change[index][1] += x;
+      }
+      return charge(x, xTotal, index);
+    }
+  }
+
+  let filter = register.change.filter(item => item[1] !== 0);
+  register.change = filter;
+
+  // Total change returned
+  let totalChangeReturned = getChange(register.change);
+
+  if(change > totalChangeReturned) {
+    register.status = "INSUFFICIENT_FUNDS";
+    register.change = [];
+  } else if(change < totalCash && change === 0) {
+    register.status = "OPEN";
+    register.change.reverse();
+  } 
+
+  return register;
+}
+
+console.log(checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 1], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
+
+
 // Still incomplete but reduced
 
 function checkCashRegister(price, cash, cid) {
