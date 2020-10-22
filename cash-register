@@ -38,8 +38,6 @@ function checkCashRegister(price, cash, cid) {
       change = change - x;
       xTotal = xTotal - x;
       register.change[index][1] += x;
-      console.log(register.change[index][1]);
-      
       return charge(x, xTotal, index);
     }
   }
