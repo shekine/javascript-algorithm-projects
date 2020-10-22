@@ -1,4 +1,4 @@
-// Now complete, but still convoluted
+// Now complete, but still convoluted. See below for slightly altered regex that cuts total code down a great deal.
 
 function telephoneCheck(str) {
   let regex = /^1*\s*(?:[(]\d{3}[)]|\d{3}[-]|\d{3}\s|\d{3})\s*(?:\d{3}[-]|\d{3})\s*(?:\d{4})/;
@@ -15,6 +15,18 @@ function telephoneCheck(str) {
   } else { 
     return false;
   }
+}
+
+console.log(telephoneCheck("1 555)555-5555"));
+
+
+// Here is the updated regex. After viewing the solutions, I realized I was missing a '$' at the end of my regex.
+// Essentially, that fixes any underlying issues I had that required all the extra filtering and code due to str.length issues.
+// I was surprised at how similar my regex was to the actual given solution. I guess that is something to be proud of.
+
+function telephoneCheck(str) {
+  let regex = /^1*\s*(?:[(]\d{3}[)]|\d{3}[-]|\d{3}\s|\d{3})\s*(?:\d{3}[-]|\d{3})\s*(?:\d{4})$/;
+  return regex.test(str);
 }
 
 console.log(telephoneCheck("1 555)555-5555"));
