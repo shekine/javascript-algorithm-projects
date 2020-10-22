@@ -1,109 +1,103 @@
 // Incomplete
 
 function checkCashRegister(price, cash, cid) {
-  let penny = cid[0][1],
-   nickel = cid[1][1],
-   dime = cid[2][1], 
-   quarter = cid[3][1], 
-   one = cid[4][1], 
-   five = cid[5][1], 
-   ten = cid[6][1], 
-   twenty = cid[7][1], 
-   hundred = cid[8][1];
+  let pennies = cid[0][1], penny = 0.01,
+   nickels = cid[1][1], nickel = 0.05,
+   dimes = cid[2][1], dime = 0.10,
+   quarters = cid[3][1], quarter = 0.25,
+   ones = cid[4][1], one = 1.00,
+   fives = cid[5][1], five = 5.00,
+   tens = cid[6][1], ten = 10.00,
+   twenties = cid[7][1], twenty = 20.00,
+   hundreds = cid[8][1], hundred = 100.00;
 
   // Declare object to be eventually returned
   let register = {
     status: "",
-    change: []
+    change: [["PENNY", 0], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]
   };
   // Find how much change is needed
   let change = cash - price;
   console.log(change);
   let totalCash = 0;
 
-  // Can we return our change
-  // function getChange(change, cid) {
-  //   for(let i = 0; i < cid.length; i++) {
-  //     totalCash = totalCash + cid[i][1];
-  //   }
-  //   return totalCash.toFixed(2);
-  // }
+  if(change > 100) {
+    charge(hundred, hundreds, 8);
+  }
 
-  function chargeHundreds(change, hundred) {
-  if(change >= 100) {
-    change = change - 100;
-    hundred = hundred - 100;
-  } 
+  function charge(x, xTotal, index) {
+    if(change < x) {
+      return change;
+    } else if(change >= x) {
+      change = change - x;
+      xTotal = xTotal - x;
+      register.change[index][1] += x;
+      return charge(x, xTotal);
+    }
+  }
+
+  function chargeHundreds() {
+    if(change < 100) {
+      return change;
+    } else if(change >= 100) {
+      change = change - hundred;
+      hundreds = hundreds - hundred;
+      register.change[8][1] += hundred;
+      return chargeHundreds();
+    }
+  }
+
+function chargeTwenties() {
+  change = change - 20;
+  twenty -= 20;
   return change;
 }
 
-function chargeTwenties(change, twenty) {
-  if(change >= 20) {
-    change = change - 20;
-    twenty -= 20;
-  } 
+function chargeTens() {
+  change = change - 10;
+  ten -= 10;
   return change;
 }
 
-function chargeTens(change, ten) {
-  if(change >= 10) {
-    change = change - 10;
-    ten -= 10;
-  } 
+function chargeFives() {
+  change = change - 5;
+  five -= 5;
   return change;
 }
 
-function chargeFives(change, five) {
-  if(change >= 5) {
-    change = change - 5;
-    five -= 5;
-  } 
+function chargeOnes() {
+  change = change - 1;
+  one -= 1;
   return change;
 }
 
-function chargeOnes(change, one) {
-  if(change >= 1) {
-    change = change - 1;
-    one -= 1;
-  } 
+function chargeQuarters() {
+  change = change - 0.25;
+  quarter -= 0.25;
   return change;
 }
 
-function chargeQuarters(change, quarter) {
-  if(change >= 0.25) {
-    change = change - 0.25;
-    quarter -= 0.25;
-  } 
+function chargeDimes() {
+  change = change - 0.10;
+  dime -= 0.10;
   return change;
 }
 
-function chargeDimes(change, dime) {
-  if(change >= 0.10) {
-    change = change - 0.10;
-    dime -= 0.10;
-  } 
+function chargeNickels() {
+  change = change - 0.05;
+  nickel -= 0.05;
   return change;
 }
 
-function chargeNickels(change, nickel) {
-  if(change >= 0.05) {
-    change = change - 0.05;
-    nickel -= 0.05;
-  } 
+function chargePennies() {
+  change = change - 0.01;
+  penny -= 0.01;
   return change;
 }
-
-function chargePennies(change, penny) {
-  if(change >= 0.01) {
-    change = change - 0.01;
-    penny -= 0.01;
-  } 
-  return change;
-}
-
-  console.log(chargeHundreds(change,hundred));
 
   return register;
 }
 
-console.log(checkCashRegister(0, 129.5, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]));
+console.log(checkCashRegister(0, 335, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]));
+
+
