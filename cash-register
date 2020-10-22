@@ -20,9 +20,9 @@ function checkCashRegister(price, cash, cid) {
   let change = cash - price;
   console.log(change);
   let totalCash = 0;
-  console.log(getChange(change, cid));
+  getChange(change, cid);
 
-  // Can we return our change
+  // Total money in the register
   function getChange(change, cid) {
     for(let i = 0; i < cid.length; i++) {
       totalCash = totalCash + cid[i][1];
@@ -54,12 +54,15 @@ function checkCashRegister(price, cash, cid) {
   let filter = register.change.filter(item => item[1] !== 0);
   register.change = filter;
 
+  if(change > totalCash) {
+    register.status = "INSUFFICIENT_FUNDS";
+    register.change = [];
+  }
+
   return register;
 }
 
-console.log(checkCashRegister(0, 335, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]));
-
-
+console.log(checkCashRegister(20, 1000, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]));
 
 
 // Incomplete 
