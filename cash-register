@@ -20,6 +20,15 @@ function checkCashRegister(price, cash, cid) {
   let change = cash - price;
   console.log(change);
   let totalCash = 0;
+  console.log(getChange(change, cid));
+
+  // Can we return our change
+  function getChange(change, cid) {
+    for(let i = 0; i < cid.length; i++) {
+      totalCash = totalCash + cid[i][1];
+    }
+    return totalCash.toFixed(2);
+  }
 
   change >= 100 ? charge(hundred, hundreds, 8) : null;
   change >= 20 ? charge(twenty, twenties, 7) : null;
@@ -49,6 +58,8 @@ function checkCashRegister(price, cash, cid) {
 }
 
 console.log(checkCashRegister(0, 335, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]));
+
+
 
 
 // Incomplete 
